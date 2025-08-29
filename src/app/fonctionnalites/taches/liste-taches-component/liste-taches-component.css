@@ -1,0 +1,258 @@
+/* ===============================
+   Layout général
+================================= */
+.conteneur-liste-taches {
+  min-height: 100vh;
+  background: var(--gray-light);
+}
+
+/* ===============================
+   Header principal
+================================= */
+.en-tete-principale {
+  background: var(--white);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.contenu-en-tete {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titre-application {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--black-primary);
+}
+
+.section-utilisateur {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.salutation {
+  color: var(--black-light);
+  font-weight: 500;
+}
+
+.bouton-deconnexion {
+  background: linear-gradient(135deg, var(--orange-primary), var(--orange-dark));
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bouton-deconnexion:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(249,115,22,0.3);
+}
+
+/* ===============================
+   Contenu principal
+================================= */
+.contenu-principal {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* En-tête page */
+.en-tete-page .actions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.en-tete-page h2 {
+  color: var(--black-primary);
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* ===============================
+   Boutons
+================================= */
+.bouton-retour {
+  background: none;
+  border: none;
+  color: var(--black-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.bouton-retour:hover {
+  color: var(--orange-primary);
+  transform: translateX(-2px);
+}
+
+.icone-fleche-retour {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.bouton-nouveau {
+  background: linear-gradient(135deg, var(--orange-primary), var(--orange-dark));
+  color: var(--white);
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bouton-nouveau:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(249,115,22,0.3);
+}
+
+/* ===============================
+   Tableau des tâches
+================================= */
+.table-wrapper {
+  overflow-x: auto; /* Responsive */
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+.table-taches {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  font-size: 0.95rem;
+}
+
+.table-taches th,
+.table-taches td {
+  padding: 0.9rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table-taches th {
+  background: var(--gray-light);
+  color: var(--black-primary);
+  font-weight: 600;
+}
+
+.table-taches tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+.table-taches tbody tr:hover {
+  background: #fef3c7; /* jaune clair au hover */
+  transition: background 0.2s ease;
+}
+
+.col-actions {
+  text-align: center;
+}
+
+/* ===============================
+   Actions
+================================= */
+.tache-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.tache-actions button {
+  padding: 0.4rem 0.9rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+/* Bouton modifier */
+.bouton-modifier {
+  background-color: var(--orange-light);
+  color: var(--orange-dark);
+}
+.bouton-modifier:hover {
+  background-color: var(--orange-primary);
+  color: var(--white);
+}
+
+/* Bouton supprimer */
+.bouton-supprimer {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+.bouton-supprimer:hover {
+  background-color: #f87171;
+  color: #fff;
+}
+
+/* ===============================
+   Statuts (badges)
+================================= */
+.badge {
+  padding: 0.25rem 0.6rem;
+  color: #dc2626;
+  border-radius: 0.375rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.statut-a_faire { background: #e0f2fe; color: #0369a1; }
+.statut-en_cours { background: #fef3c7; color: #92400e; }
+.statut-termine { background: #dcfce7; color: #166534; }
+
+/* ===============================
+   États
+================================= */
+.alerte-erreur {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.chargement {
+  text-align: center;
+  color: var(--black-primary);
+}
+
+.aucune-tache {
+  text-align: center;
+  color: var(--gray-medium);
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+.lien-tache {
+  color: var(--orange-dark);
+  text-decoration: underline;
+}
+.lien-tache:hover {
+  color: var(--orange-primary);
+}

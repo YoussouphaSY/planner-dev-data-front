@@ -1,0 +1,22 @@
+<div class="overlay">
+    <div class="popup">
+      <h2>Créer un planning</h2>
+      <form [formGroup]="formulaire" (ngSubmit)="onSubmit()">
+        <label>Jour de la semaine</label>
+        <select formControlName="jour">
+          <option value="">Sélectionnez un jour</option>
+          <option *ngFor="let jour of joursSemaine" [value]="jour">{{ jour }}</option>
+        </select>
+  
+        <div *ngIf="messageErreur" class="alerte-erreur">{{ messageErreur }}</div>
+  
+        <div class="actions">
+          <button type="button" (click)="fermer()">Annuler</button>
+          <button type="submit" [disabled]="formulaire.invalid || chargement">
+            {{ chargement ? 'Création...' : 'Créer' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

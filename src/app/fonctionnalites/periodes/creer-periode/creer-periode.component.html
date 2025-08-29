@@ -1,0 +1,81 @@
+<div class="conteneur-creation-periode">
+  <div class="contenu-principal">
+    <div class="carte-formulaire">
+      
+      <!-- En-tête -->
+      <div class="en-tete-page">
+        <!-- Bouton retour -->
+        <button routerLink="/periodes" class="bouton-retour" title="Retour aux périodes">
+          <svg class="icone-fleche-retour" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Retour
+        </button>
+
+        <!-- Titre centré -->
+        <div class="section-titre-page">
+          <h1 class="titre-formulaire">Nouvelle Période</h1>
+          <p class="sous-titre-formulaire">Créez une nouvelle période de planification</p>
+        </div>
+
+        <!-- Espace réservé à un bouton optionnel (ex: aide) -->
+        <div class="espace-action"></div>
+      </div>
+
+      <!-- Formulaire -->
+      <form [formGroup]="formulairePeriode" (ngSubmit)="onSubmit()" class="formulaire">
+        <div class="grille-champs">
+          <div class="groupe-champ">
+            <label class="etiquette-champ">Date de début</label>
+            <input type="date" formControlName="date_debut" class="champ-saisie">
+            <div *ngIf="formulairePeriode.get('date_debut')?.invalid && formulairePeriode.get('date_debut')?.touched" 
+                 class="message-erreur">
+              Date de début requise
+            </div>
+          </div>
+
+          <div class="groupe-champ">
+            <label class="etiquette-champ">Date de fin</label>
+            <input type="date" formControlName="date_fin" class="champ-saisie">
+            <div *ngIf="formulairePeriode.get('date_fin')?.invalid && formulairePeriode.get('date_fin')?.touched" 
+                 class="message-erreur">
+              Date de fin requise
+            </div>
+            <div *ngIf="formulairePeriode.errors?.['plageDate']" class="message-erreur">
+              La date de fin doit être postérieure à la date de début
+            </div>
+          </div>
+        </div>
+
+        <!-- Aperçu -->
+        <div *ngIf="formulairePeriode.valid" class="apercu-periode">
+          <h3 class="titre-apercu">Aperçu de la période</h3>
+          <div class="contenu-apercu">
+            <p class="dates-apercu">
+              📅 Du {{ formaterDate(formulairePeriode.get('date_debut')?.value) }}
+              au {{ formaterDate(formulairePeriode.get('date_fin')?.value) }}
+            </p>
+            <p class="duree-apercu">⏳ Durée: {{ obtenirDureeEnJours() }} jours</p>
+          </div>
+        </div>
+
+        <!-- Erreurs globales -->
+        <div *ngIf="messageErreur" class="alerte-erreur">
+          <p class="texte-erreur">{{ messageErreur }}</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions-formulaire">
+          <button type="button" (click)="retourner()" class="bouton-secondaire">
+            Annuler
+          </button>
+          <button type="submit" [disabled]="formulairePeriode.invalid || chargement" class="bouton-principal">
+            <span *ngIf="chargement" class="spinner-bouton"></span>
+            {{ chargement ? 'Création...' : 'Créer la période' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

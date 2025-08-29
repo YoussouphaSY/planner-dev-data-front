@@ -1,0 +1,159 @@
+<div class="conteneur-liste-periodes">
+  <header class="en-tete-principale">
+    <div class="contenu-en-tete">
+      <div class="section-titre">
+        <h1 class="titre-application">Planning Manager</h1>
+      </div>
+      <div class="section-utilisateur">
+        <span class="salutation">Bienvenue, {{ utilisateurActuel?.last_name }}</span>
+        <button 
+          (click)="deconnexion()"
+          class="bouton-deconnexion"
+        >
+          Déconnexion
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="contenu-principal">
+    <!-- En-tête -->
+    <div class="en-tete-page">
+      <button 
+      routerLink="/tableau-de-bord"
+      class="bouton-retour"
+      title="Retour à l'accueil"
+      >
+        <svg class="icone-fleche-retour" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Accueil
+      </button>
+      <div class="section-titre">
+        <h1 class="titre-page">Mes Périodes</h1>
+        <p class="sous-titre-page">Gérez vos périodes de planification</p>
+      </div>
+      <button 
+        routerLink="/periodes/creer"
+        class="bouton-principal"
+      >
+        <svg class="icone-bouton" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        Nouvelle Période
+      </button>
+    </div>
+
+    <!-- Filtre par état -->
+    <div class="filtre-etat">
+      <label for="etat">Filtrer par état :</label>
+      <select id="etat" [(ngModel)]="etatSelectionne">
+        <option value="tous">Tous</option>
+        <option value="actif">Actif</option>
+        <option value="termine">Terminé</option>
+        <option value="retard">Retard</option>
+      </select>
+    </div>
+
+    <!-- Contenu -->
+    <div *ngIf="chargement" class="conteneur-chargement">
+      <div class="spinner-chargement"></div>
+      <p class="texte-chargement">Chargement des périodes...</p>
+    </div>
+
+    <div *ngIf="!chargement && periodes.length === 0" class="etat-vide">
+      <svg class="icone-vide" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+      </svg>
+      <h3 class="titre-vide">Aucune période</h3>
+      <p class="description-vide">Vous n'avez pas encore créé de période de planification</p>
+      <button 
+        routerLink="/periodes/creer"
+        class="bouton-principal"
+      >
+        Créer ma première période
+      </button>
+    </div>
+
+    <div *ngIf="!chargement && periodesFiltrees.length > 0" class="grille-periodes">
+      <div 
+        *ngFor="let periode of periodesFiltrees; trackBy: suivrePeriode"
+        class="carte-periode"
+      >
+        <div class="contenu-carte">
+          <div class="en-tete-carte">
+            <h3 class="titre-periode">Periode</h3>
+            <span 
+            class="badge-statut"
+            [ngClass]="{
+              'badge-actif': periode.statut === 'actif',
+              'badge-termine': periode.statut === 'termine',
+              'badge-retard': periode.statut === 'retard'
+            }"
+          >
+            {{ periode.statut | titlecase }}
+          </span>
+            <!-- <div class="actions-carte">
+              <button 
+                (click)="ouvrirPopupModification(periode)"
+                class="bouton-action bouton-modifier"
+                title="Modifier"
+              >
+                <svg class="icone-action" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+              </button>
+              <button 
+                (click)="supprimerPeriode(periode.id)"
+                class="bouton-action bouton-supprimer"
+                title="Supprimer"
+              >
+                <svg class="icone-action" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+              </button>
+            </div> -->
+          </div>
+
+          <div class="details-periode">
+            <div class="detail-item">
+              <svg class="icone-detail" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <span>Du {{ formaterDate(periode.date_debut) }}</span>
+            </div>
+            <div class="detail-item">
+              <svg class="icone-detail" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <span>Au {{ formaterDate(periode.date_fin) }}</span>
+            </div>
+            <div class="detail-item">
+              <svg class="icone-detail" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span>{{ obtenirDureeEnJours(periode.date_debut, periode.date_fin) }} jours</span>
+            </div>
+          </div>
+
+          <button 
+            [routerLink]="['/periodes', periode.id]"
+            class="bouton-voir-plannings"
+          >
+            Voir les plannings
+            <svg class="icone-fleche" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <app-udpdate-periode-component
+      *ngIf="afficherPopupModification"
+      [periode]="periodeAModifier"
+      (miseAJour)="mettreAJourPeriodeDansListe($event)"
+      (fermer)="fermerPopupModification()"
+    ></app-udpdate-periode-component>
+    
+    </div>
+  </div>
+</div>

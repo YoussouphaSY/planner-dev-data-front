@@ -1,0 +1,254 @@
+/* Conteneur */
+.conteneur-creation-periode {
+  min-height: 100vh;
+  background: #f8fafc;
+  padding: 2rem 1rem;
+}
+
+.contenu-principal {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Carte */
+.carte-formulaire {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* En-tête aligné comme dans les listes */
+.en-tete-page {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+}
+
+.section-titre-page {
+  text-align: center;
+  flex: 1;
+}
+
+.titre-formulaire {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.sous-titre-formulaire {
+  color: #6b7280;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Bouton retour */
+.bouton-retour {
+  background: none;
+  border: none;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.bouton-retour:hover {
+  color: #f97316;
+  transform: translateX(-2px);
+}
+
+.icone-fleche-retour {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Formulaire */
+.formulaire {
+  padding: 2rem;
+}
+
+.grille-champs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.groupe-champ {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.etiquette-champ {
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.champ-saisie {
+  padding: 0.875rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: #fafafa;
+}
+
+.champ-saisie:focus {
+  outline: none;
+  border-color: #f97316;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.champ-saisie:hover {
+  border-color: #d1d5db;
+  background: white;
+}
+
+.message-erreur {
+  color: #dc2626;
+  font-size: 0.875rem;
+}
+
+/* Aperçu */
+.apercu-periode {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.titre-apercu {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 1rem 0;
+}
+
+.contenu-apercu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dates-apercu,
+.duree-apercu {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.duree-apercu {
+  font-weight: 500;
+}
+
+/* Alerte d'erreur */
+.alerte-erreur {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.texte-erreur {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Actions */
+.actions-formulaire {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.bouton-secondaire {
+  padding: 0.875rem 1.5rem;
+  border: 2px solid #e5e7eb;
+  background: white;
+  color: #374151;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bouton-secondaire:hover {
+  border-color: #d1d5db;
+  background: #f9fafb;
+}
+
+.bouton-principal {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bouton-principal:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
+}
+
+.bouton-principal:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.spinner-bouton {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .en-tete-page {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .grille-champs {
+    grid-template-columns: 1fr;
+  }
+
+  .actions-formulaire {
+    flex-direction: column;
+  }
+
+  .bouton-principal,
+  .bouton-secondaire {
+    width: 100%;
+    justify-content: center;
+  }
+}

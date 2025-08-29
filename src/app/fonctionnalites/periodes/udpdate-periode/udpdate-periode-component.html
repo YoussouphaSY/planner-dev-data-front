@@ -1,0 +1,22 @@
+<div class="overlay-popup">
+    <div class="popup">
+      <h3>Modifier la période</h3>
+      <form [formGroup]="formulaire" (ngSubmit)="onSubmit()">
+        <label>Date de début</label>
+        <input type="date" formControlName="date_debut">
+        
+        <label>Date de fin</label>
+        <input type="date" formControlName="date_fin">
+  
+        <div class="actions-popup">
+          <button type="button" (click)="annuler()">Annuler</button>
+          <button type="submit" [disabled]="chargement">
+            {{ chargement ? 'Enregistrement...' : 'Enregistrer' }}
+          </button>
+        </div>
+  
+        <div *ngIf="messageErreur" class="message-erreur">{{ messageErreur }}</div>
+      </form>
+    </div>
+  </div>
+  

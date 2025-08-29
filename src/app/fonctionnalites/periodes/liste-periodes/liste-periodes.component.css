@@ -1,0 +1,359 @@
+.conteneur-liste-periodes {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.en-tete-principale {
+  background: var(--white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.contenu-en-tete {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titre-application {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--black-primary);
+  margin: 0;
+}
+
+.section-utilisateur {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.salutation {
+  color: var(--black-light);
+  font-weight: 500;
+}
+
+.bouton-deconnexion {
+  background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-dark) 100%);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bouton-deconnexion:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.contenu-principal {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* En-tête */
+
+.bouton-retour {
+  background: none;
+  border: none;
+  color: var(--gris-fonce);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: color 0.2s ease;
+}
+
+.bouton-retour:hover {
+  color: var(--orange-primary);
+}
+
+.icone-fleche-retour {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.en-tete-page {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.titre-page {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.sous-titre-page {
+  color: #520b11;
+  margin: 0;
+}
+
+.bouton-principal {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.bouton-principal:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
+}
+
+.icone-bouton {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.filtre-etat { margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.filtre-etat select { padding: 0.3rem 0.5rem; border-radius: 4px; border: 1px solid #ccc; }
+
+
+/* États de chargement et vide */
+.conteneur-chargement {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.spinner-chargement {
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #f97316;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.badge-statut {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.badge-actif {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.badge-termine {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-retard {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.texte-chargement {
+  color: #6b7280;
+  font-size: 1.125rem;
+}
+
+.etat-vide {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.icone-vide {
+  width: 4rem;
+  height: 4rem;
+  color: #9ca3af;
+  margin: 0 auto 1.5rem;
+}
+
+.titre-vide {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 0.5rem 0;
+}
+
+.description-vide {
+  color: #6b7280;
+  margin: 0 0 2rem 0;
+}
+
+/* Grille des périodes */
+.grille-periodes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.carte-periode {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.carte-periode:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #f97316;
+}
+
+.contenu-carte {
+  padding: 1.5rem;
+}
+
+.en-tete-carte {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.titre-periode {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.actions-carte {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.bouton-action {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bouton-modifier {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.bouton-modifier:hover {
+  background: #fed7aa;
+  color: #ea580c;
+}
+
+.bouton-supprimer {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.bouton-supprimer:hover {
+  background: #fecaca;
+  color: #dc2626;
+}
+
+.icone-action {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Détails de la période */
+.details-periode {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.icone-detail {
+  width: 1rem;
+  height: 1rem;
+  color: #9ca3af;
+}
+
+/* Bouton voir plannings */
+.bouton-voir-plannings {
+  width: 100%;
+  background: #f8fafc;
+  color: #374151;
+  border: 1px solid #e2e8f0;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.bouton-voir-plannings:hover {
+  background: #fed7aa;
+  color: #ea580c;
+  border-color: #f97316;
+}
+
+.icone-fleche {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contenu-principal {
+    padding: 1rem;
+  }
+  
+  .en-tete-page {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .grille-periodes {
+    grid-template-columns: 1fr;
+  }
+  
+  .titre-page {
+    font-size: 1.75rem;
+  }
+}

@@ -1,0 +1,250 @@
+/* ========================================
+   Conteneur global
+======================================== */
+.conteneur-liste-plannings {
+  min-height: 100vh;
+  background: #f8fafc; /* Fond léger pour toute la page */
+}
+
+/* ========================================
+   En-tête principale
+======================================== */
+.en-tete-principale {
+  background: var(--white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky; /* Fixe l'en-tête lors du scroll */
+  top: 0;
+  z-index: 10;
+}
+
+.contenu-en-tete {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Titre de l'application */
+.titre-application {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--black-primary);
+  margin: 0;
+}
+
+/* Section utilisateur */
+.section-utilisateur {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.salutation {
+  color: var(--black-light);
+  font-weight: 500;
+}
+
+/* Bouton de déconnexion */
+.bouton-deconnexion {
+  background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-dark) 100%);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bouton-deconnexion:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+/* ========================================
+   Contenu principal
+======================================== */
+.contenu-principal {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* En-tête de la page */
+.en-tete-page {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Bouton retour à l'accueil */
+.bouton-retour {
+  background: none;
+  border: none;
+  color: var(--gris-fonce);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.bouton-retour:hover {
+  color: var(--orange-primary);
+  transform: translateX(-2px); /* petit mouvement dynamique */
+}
+
+.icone-fleche-retour {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* ========================================
+   Grille des plannings
+======================================== */
+.grille-plannings {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Carte individuelle de planning */
+.carte-planning {
+  background: #fff;
+  border-radius: 0.5rem;
+  border: 2px solid transparent; /* Bordure initiale transparente */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; /* Ajout de la transition pour la bordure */
+}
+
+/* Effet dynamique au survol */
+.carte-planning:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  border-color: var(--orange-primary); /* Bordure colorée au survol */
+}
+
+.bouton-nouveau {
+  background: linear-gradient(135deg, var(--orange-primary) 0%, var(--orange-dark) 100%);
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  width: fit-content;
+  display: flex;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.bouton-nouveau:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
+}
+
+
+
+/* Titre de la carte */
+.carte-planning h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: var(--black-primary);
+}
+
+/* Bouton interne à la carte */
+.carte-planning button {
+  background: var(--orange-primary);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+
+.carte-planning button:hover {
+  background: var(--orange-dark);
+  transform: translateY(-2px);
+}
+
+/* Texte de chargement et erreur */
+.spinner-chargement {
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #f97316;
+  border-radius: 50%;
+  animation: rotation 1s linear infinite;
+  margin: 2rem auto;
+}
+
+@keyframes rotation {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.texte-erreur {
+  color: red;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+
+
+.actions-carte {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.bouton-action {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bouton-modifier {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.bouton-modifier:hover {
+  background: #fed7aa;
+  color: #ea580c;
+}
+
+.bouton-supprimer {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.bouton-supprimer:hover {
+  background: #fecaca;
+  color: #dc2626;
+}
+
+.icone-action {
+  width: 1rem;
+  height: 1rem;
+}

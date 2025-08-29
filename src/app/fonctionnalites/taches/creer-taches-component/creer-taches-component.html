@@ -1,0 +1,32 @@
+<div class="overlay-popup">
+    <div class="popup">
+      <h3>Nouvelle Tâche</h3>
+  
+      <form [formGroup]="formulaireTache" (ngSubmit)="creerTache()">
+        <div class="champ-form">
+          <label>Titre</label>
+          <input formControlName="titre" type="text">
+        </div>
+  
+        <div class="champ-form">
+          <label>Durée estimée (h)</label>
+          <input formControlName="duree_estimee" type="number" min="1">
+        </div>
+  
+        <div class="champ-form">
+          <label>Lien (optionnel)</label>
+          <input formControlName="lien" type="url">
+        </div>
+  
+        <div class="actions-popup">
+          <button type="button" (click)="fermer()">Annuler</button>
+          <button type="submit" [disabled]="chargement">
+            {{ chargement ? 'Création...' : 'Créer' }}
+          </button>
+        </div>
+  
+        <div *ngIf="messageErreur" class="message-erreur">{{ messageErreur }}</div>
+      </form>
+    </div>
+  </div>
+  

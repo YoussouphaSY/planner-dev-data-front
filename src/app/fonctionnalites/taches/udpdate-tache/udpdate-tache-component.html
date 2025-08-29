@@ -1,0 +1,30 @@
+<div class="overlay-popup">
+    <div class="popup">
+      <h3>Modifier la tâche</h3>
+      <form [formGroup]="formulaire" (ngSubmit)="onSubmit()">
+        <label>Titre</label>
+        <input type="text" formControlName="titre">
+  
+        <label>Durée estimée (heures)</label>
+        <input type="number" formControlName="duree_estimee">
+  
+        <label>Lien</label>
+        <input type="text" formControlName="lien">
+  
+        <label>Statut</label>
+        <select formControlName="statut">
+          <option *ngFor="let s of statuts" [value]="s">{{ s }}</option>
+        </select>
+  
+        <div class="actions-popup">
+          <button type="button" (click)="annuler()">Annuler</button>
+          <button type="submit" [disabled]="chargement">
+            {{ chargement ? 'Enregistrement...' : 'Enregistrer' }}
+          </button>
+        </div>
+  
+        <div *ngIf="messageErreur" class="message-erreur">{{ messageErreur }}</div>
+      </form>
+    </div>
+  </div>
+  

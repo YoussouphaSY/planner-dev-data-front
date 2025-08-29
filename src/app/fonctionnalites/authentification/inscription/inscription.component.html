@@ -1,0 +1,95 @@
+<div class="conteneur-inscription">
+  <div class="carte-inscription">
+    <div class="en-tete-inscription">
+      <h1 class="titre-inscription">Inscription</h1>
+      <p class="sous-titre-inscription">Créez votre compte</p>
+    </div>
+
+    <form [formGroup]="formulaireInscription" (ngSubmit)="onSubmit()" class="formulaire-inscription">
+      <div class="grille-champs">
+        <div class="groupe-champ">
+          <label class="etiquette-champ">Prénom</label>
+          <input 
+            type="text" 
+            formControlName="first_name"
+            class="champ-saisie"
+            placeholder="Prénom"
+          >
+        </div>
+        <div class="groupe-champ">
+          <label class="etiquette-champ">Nom</label>
+          <input 
+            type="text" 
+            formControlName="last_name"
+            class="champ-saisie"
+            placeholder="Nom"
+          >
+        </div>
+      </div>
+
+      <div class="groupe-champ">
+        <label class="etiquette-champ">Nom d'utilisateur</label>
+        <input 
+          type="text" 
+          formControlName="username"
+          class="champ-saisie"
+          placeholder="Nom d'utilisateur"
+        >
+      </div>
+
+      <div class="groupe-champ">
+        <label class="etiquette-champ">Email</label>
+        <input 
+          type="email" 
+          formControlName="email"
+          class="champ-saisie"
+          placeholder="votre@email.com"
+        >
+      </div>
+
+      <div class="groupe-champ">
+        <label class="etiquette-champ">Filière</label>
+        <select 
+          formControlName="filiere"
+          class="champ-selection"
+        >
+          <option value="">Choisir une filière</option>
+          <option *ngFor="let filiere of filieres" [value]="filiere.value">
+            {{ filiere.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="groupe-champ">
+        <label class="etiquette-champ">Mot de passe</label>
+        <input 
+          type="password" 
+          formControlName="password"
+          class="champ-saisie"
+          placeholder="Mot de passe (min. 6 caractères)"
+        >
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="formulaireInscription.invalid || chargement"
+        class="bouton-principal"
+      >
+        {{ chargement ? 'Inscription...' : 'S\'inscrire' }}
+      </button>
+
+      <div *ngIf="messageErreur" class="alerte-erreur">
+        {{ messageErreur }}
+      </div>
+    </form>
+
+    <div class="pied-inscription">
+      <p class="texte-lien">
+        Déjà un compte ? 
+        <a routerLink="/connexion" class="lien-orange">
+          Se connecter
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

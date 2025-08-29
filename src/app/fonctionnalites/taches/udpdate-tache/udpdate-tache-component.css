@@ -1,0 +1,55 @@
+.overlay-popup {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1000;
+  }
+  
+  .popup {
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  
+  .popup h3 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .popup label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  
+  .popup input, .popup select {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  .actions-popup {
+    display: flex; justify-content: flex-end; gap: 10px;
+  }
+  
+  .actions-popup button {
+    padding: 8px 14px; border: none; border-radius: 4px;
+    font-weight: 500; cursor: pointer;
+  }
+  
+  .actions-popup button[type="button"] { background-color: #ccc; color: #333; }
+  .actions-popup button[type="submit"] { background-color: #4caf50; color: #fff; }
+  .actions-popup button:disabled { background-color: #a5d6a7; cursor: not-allowed; }
+  
+  .message-erreur { color: #d32f2f; text-align: center; margin-top: 10px; }
+  
+
+  

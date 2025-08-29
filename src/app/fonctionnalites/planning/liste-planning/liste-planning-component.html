@@ -1,0 +1,106 @@
+<div class="conteneur-liste-plannings">
+
+  <!-- En-tête principale -->
+  <header class="en-tete-principale">
+    <div class="contenu-en-tete">
+      <div class="section-titre">
+        <h1 class="titre-application">Planning Manager</h1>
+      </div>
+      <div class="section-utilisateur">
+        <span class="salutation">Bienvenue, {{ utilisateurActuel?.last_name }}</span>
+        <button (click)="deconnexion()" class="bouton-deconnexion">
+          Déconnexion
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenu principal -->
+  <div class="contenu-principal">
+
+    <!-- En-tête page : flèche, titre, bouton -->
+    <div class="en-tete-page">
+      
+      <button routerLink="/tableau-de-bord" class="bouton-retour" title="Retour à l'accueil">
+        <svg class="icone-fleche-retour" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Accueil
+      </button>
+
+      <h2 *ngIf="periode" class="titre-periode">
+        Plannings de la période du {{ periode.date_debut | date:'dd/MM/yyyy' }}
+        au {{ periode.date_fin | date:'dd/MM/yyyy' }}
+      </h2>
+
+      <button (click)="afficherPopup = true" class="bouton-nouveau">
+        <svg class="icone-bouton" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        Nouveau Planning
+      </button>
+
+      <!-- Popup création planning -->
+      <app-creer-planning-component
+        *ngIf="afficherPopup"
+        [idPeriode]="idPeriode"
+        (planningCree)="rafraichirPlannings(); afficherPopup = false"
+      ></app-creer-planning-component>
+
+    </div>
+
+    <!-- Messages chargement / erreur -->
+    <div *ngIf="chargement" class="spinner-chargement"></div>
+    <p *ngIf="erreur" class="texte-erreur">{{ erreur }}</p>
+
+    <div *ngIf="!chargement && plannings.length === 0">
+      <p>Aucun planning disponible pour cette période.</p>
+    </div>
+
+    <!-- Grille des plannings -->
+    <div *ngIf="!chargement && plannings.length > 0" class="grille-plannings">
+      <div *ngFor="let planning of plannings; trackBy: suivrePlanning" class="carte-planning">
+        
+        <div class="en-tete-carte">
+          <h3 class="titre-planning">Jour du planning</h3>
+          <div class="actions-carte">
+            <!-- Icône Modifier -->
+            <button (click)="ouvrirPopupModification(planning)" class="bouton-action bouton-modifier" title="Modifier">
+              <svg class="icone-action" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                </path>
+              </svg>
+            </button>
+    
+            <!-- Icône Supprimer -->
+            <button (click)="supprimerPlanning(planning.id)" class="bouton-action bouton-supprimer" title="Supprimer">
+              <svg class="icone-action" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                </path>
+              </svg>
+            </button>
+          </div>
+        </div>
+    
+        <p>Jour: {{ planning.jour }}</p>
+        <button [routerLink]="['/plannings', planning.id, 'taches']" class="bouton-voir-taches">
+          Voir les tâches
+        </button>
+        
+      </div>
+    </div>
+
+    <app-udpdate-planning-component
+      *ngIf="afficherPopupModification && planningAModifier"
+      [planning]="planningAModifier"
+      [idPeriode]="idPeriode"
+      (miseAJour)="mettreAJourPlanningDansListe($event)"
+      (fermer)="fermerPopupModification()"
+    ></app-udpdate-planning-component>
+
+    
+
+  </div>
+</div>

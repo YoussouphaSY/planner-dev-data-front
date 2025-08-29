@@ -1,0 +1,25 @@
+<div class="overlay-popup">
+    <div class="popup">
+      <h3>Modifier le planning</h3>
+      <form [formGroup]="formulaire" (ngSubmit)="onSubmit()">
+        <label>Jour</label>
+        <select formControlName="jour">
+          <option value="lundi">Lundi</option>
+          <option value="mardi">Mardi</option>
+          <option value="mercredi">Mercredi</option>
+          <option value="jeudi">Jeudi</option>
+          <option value="vendredi">Vendredi</option>
+        </select>
+  
+        <div class="actions-popup">
+          <button type="button" (click)="annuler()">Annuler</button>
+          <button type="submit" [disabled]="chargement">
+            {{ chargement ? 'Enregistrement...' : 'Enregistrer' }}
+          </button>
+        </div>
+  
+        <div *ngIf="messageErreur" class="message-erreur">{{ messageErreur }}</div>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,141 @@
+<div class="conteneur-tableau-de-bord">
+  <!-- En-tête -->
+  <header class="en-tete-principale">
+    <div class="contenu-en-tete">
+      <div class="section-titre">
+        <h1 class="titre-application">Planning Manager</h1>
+      </div>
+      <div class="section-utilisateur">
+        <span class="salutation">Bienvenue, {{ utilisateurActuel?.last_name }}</span>
+        <button 
+          (click)="deconnexion()"
+          class="bouton-deconnexion"
+        >
+          Déconnexion
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenu principal -->
+  <main class="contenu-principal">
+    <!-- Cartes de statistiques -->
+    <div class="grille-statistiques">
+      <div class="carte-statistique">
+        <div class="contenu-statistique">
+          <div class="icone-statistique icone-orange">
+            <svg class="icone" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <div class="texte-statistique">
+            <p class="label-statistique">Planning totales</p>
+            <p class="valeur-statistique">{{ periodes.length }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="carte-statistique">
+        <div class="contenu-statistique">
+          <div class="icone-statistique icone-verte">
+            <svg class="icone" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div class="texte-statistique">
+            <p class="label-statistique">Filière</p>
+            <p class="valeur-statistique">{{ utilisateurActuel?.filiere }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="carte-statistique">
+        <div class="contenu-statistique">
+          <div class="icone-statistique icone-bleue">
+            <svg class="icone" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+          </div>
+          <div class="texte-statistique">
+            <p class="label-statistique">Utilisateur</p>
+            <p class="valeur-statistique">{{ utilisateurActuel?.username }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section des périodes -->
+    <div class="section-periodes">
+      <div class="en-tete-section">
+        <div class="titre-section">
+          <h2 class="titre-h2">Mes Périodes</h2>
+        </div>
+        <button routerLink="/periodes" class="bouton-voir-toutes">
+          Voir toutes les périodes
+        </button>
+        
+        <button 
+          routerLink="/periodes/creer"
+          class="bouton-nouveau"
+        >
+          <svg class="icone-bouton" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          Nouvelle Période
+        </button>
+      </div>
+
+      <div class="contenu-section">
+        <div *ngIf="chargement" class="conteneur-chargement">
+          <div class="spinner-chargement"></div>
+        </div>
+        
+        <div *ngIf="!chargement && periodes.length === 0" class="etat-vide">
+          <svg class="icone-vide" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <p class="titre-vide">Aucune période créée</p>
+          <p class="description-vide">Commencez par créer votre première période de planning</p>
+        </div>
+
+        <div *ngIf="!chargement && periodes.length > 0" class="grille-periodes">
+          <div 
+            *ngFor="let periode of periodes | slice:-6" 
+            class="carte-periode"
+            [routerLink]="['/periodes', periode.id]"
+          >
+            <div class="en-tete-carte">
+              <h3 class="titre-periode">Période</h3>
+              <span 
+                class="badge"
+                [ngClass]="{
+                  'badge-actif': periode.statut === 'actif',
+                  'badge-termine': periode.statut === 'termine',
+                  'badge-retard': periode.statut === 'retard'
+                }"
+              >
+                {{ periode.statut | titlecase }}
+              </span>
+            </div>
+        
+            <p class="dates-periode">
+              Du {{ formaterDate(periode.date_debut) }} au {{ formaterDate(periode.date_fin) }}
+            </p>
+        
+            <div class="pied-carte">
+              <span class="duree-periode">
+                {{ obtenirDifferenceJours(periode.date_debut, periode.date_fin) }} jours
+              </span>
+              <span class="fleche-navigation">→</span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="periodes.length  > 6" class="conteneur-bouton-voir-plus">
+          <button routerLink="/periodes" class="bouton-voir-plus">
+            Voir toutes les périodes
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

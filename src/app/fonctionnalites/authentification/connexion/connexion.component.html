@@ -1,0 +1,59 @@
+<div class="conteneur-connexion">
+  <div class="carte-connexion">
+    <div class="en-tete-connexion">
+      <h1 class="titre-connexion">Connexion</h1>
+      <p class="sous-titre-connexion">Connectez-vous à votre compte</p>
+    </div>
+
+    <form [formGroup]="formulaireConnexion" (ngSubmit)="onSubmit()" class="formulaire-connexion">
+      <div class="groupe-champ">
+        <label class="etiquette-champ">Email</label>
+        <input 
+          type="email" 
+          formControlName="email"
+          class="champ-saisie"
+          placeholder="votre@email.com"
+        >
+        <div *ngIf="formulaireConnexion.get('email')?.invalid && formulaireConnexion.get('email')?.touched" 
+             class="message-erreur">
+          Email requis et valide
+        </div>
+      </div>
+
+      <div class="groupe-champ">
+        <label class="etiquette-champ">Mot de passe</label>
+        <input 
+          type="password" 
+          formControlName="password"
+          class="champ-saisie"
+          placeholder="Votre mot de passe"
+        >
+        <div *ngIf="formulaireConnexion.get('password')?.invalid && formulaireConnexion.get('password')?.touched" 
+             class="message-erreur">
+          Mot de passe requis
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="formulaireConnexion.invalid || chargement"
+        class="bouton-principal"
+      >
+        {{ chargement ? 'Connexion...' : 'Se connecter' }}
+      </button>
+
+      <div *ngIf="messageErreur" class="alerte-erreur">
+        {{ messageErreur }}
+      </div>
+    </form>
+
+    <div class="pied-connexion">
+      <p class="texte-lien">
+        Pas encore de compte ? 
+        <a routerLink="/inscription" class="lien-orange">
+          S'inscrire
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

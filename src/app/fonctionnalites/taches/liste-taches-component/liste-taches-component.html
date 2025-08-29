@@ -1,0 +1,96 @@
+<div class="conteneur-liste-taches">
+
+  <!-- En-tête principale -->
+  <header class="en-tete-principale">
+    <div class="contenu-en-tete">
+      <div class="section-titre">
+        <h1 class="titre-application">Planning Manager</h1>
+      </div>
+      <div class="section-utilisateur">
+        <span class="salutation">Bienvenue, {{ utilisateurActuel?.last_name }}</span>
+        <button (click)="deconnexion()" class="bouton-deconnexion">
+          Déconnexion
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenu principal -->
+  <div class="contenu-principal">
+
+    <!-- En-tête page -->
+    <div class="en-tete-page">
+      <div class="actions-header">
+        <button routerLink="/tableau-de-bord" class="bouton-retour" title="Retour à l'accueil">
+          <svg class="icone-fleche-retour" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Accueil
+        </button>
+
+        <h2>Tâches du planning {{ planningActuel?.jour }}</h2>
+
+        <button (click)="ouvrirPopup()" class="bouton-nouveau">
+          <svg class="icone-bouton" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          Nouvelle Tâche
+        </button>
+      </div>
+    </div>
+
+
+    <!-- Popup Nouvelle Tâche -->
+    <app-creer-taches-component
+      *ngIf="afficherPopup"
+      [idPlanning]="idPlanning"
+      (tacheCree)="rafraichirTaches();  afficherPopup = false"
+      (fermerPopup)="afficherPopup = false"
+    ></app-creer-taches-component>
+
+    <!-- Messages chargement / erreur -->
+    <div *ngIf="chargement" class="chargement">Chargement...</div>
+    <div *ngIf="erreur" class="alerte-erreur">{{ erreur }}</div>
+
+    <!-- Tableau des tâches -->
+    <div class="table-wrapper">
+      <table *ngIf="!chargement && taches.length > 0" class="table-taches">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Lien</th>
+            <th>Durée estimée</th>
+            <th>Statut</th>
+            <th class="col-actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tache of taches; trackBy: suivreTache">
+            <td>{{ tache.titre }}</td>
+            <td>
+              <a *ngIf="tache.lien" [href]="tache.lien" target="_blank" rel="noopener" class="lien-tache">
+                {{ tache.lien }}
+              </a>
+              <span *ngIf="!tache.lien">—</span>
+            </td>
+            <td>{{ tache.duree_estimee }} h</td>
+            <td>
+              <span class="badge" [ngClass]="'statut-' + tache.statut">
+                {{ tache.statut| titlecase }}
+              </span>
+            </td>
+            <td class="tache-actions">
+              <button (click)="modifierTache(tache)" class="bouton-modifier">Modifier</button>
+              <button (click)="supprimerTache(tache)" class="bouton-supprimer">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Aucune tâche -->
+    <div *ngIf="!chargement && taches.length === 0" class="aucune-tache">
+      Aucune tâche pour ce planning.
+    </div>
+  </div>
+</div>
