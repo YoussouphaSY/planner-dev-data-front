@@ -7,7 +7,7 @@ import { Tache, DemandeTache } from '../modeles/planning.model';
   providedIn: 'root'
 })
 export class TacheService {
-  private readonly API_URL = 'http://localhost:8000/api/plannings';
+  private readonly API_URL = 'https://planner-dev-data-backend.onrender.com/api/plannings';
 
   constructor(private http: HttpClient) {}
 

@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { AuthentificationService } from '../../../noyau/services/authentification.service';
 import { Filiere } from '../../../noyau/modeles/utilisateur.model';
 
 @Component({
   selector: 'app-inscription',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, NgIf],
   templateUrl: './inscription.component.html',
   styleUrls: ['./inscription.component.css']
 })
@@ -36,8 +36,16 @@ export class InscriptionComponent {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       filiere: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      password_confirm: ['', [Validators.required, Validators.minLength(6)]]
+    }, { validators: this.passwordsCorrespondent }); // <-- Ajout du validateur
+  }
+
+  // Validateur personnalisé pour vérifier que les mots de passe correspondent
+  passwordsCorrespondent(group: FormGroup) {
+    const password = group.get('password')?.value;
+    const confirm = group.get('password_confirm')?.value;
+    return password === confirm ? null : { passwordMismatch: true };
   }
 
   onSubmit(): void {

@@ -70,6 +70,17 @@
         >
       </div>
 
+      <div class="groupe-champ">
+        <label class="etiquette-champ">Confirmer le mot de passe</label>
+        <input 
+          type="password" 
+          formControlName="password_confirm"
+          class="champ-saisie"
+          placeholder="Confirmez le mot de passe"
+        >
+      </div>
+   
+
       <button 
         type="submit" 
         [disabled]="formulaireInscription.invalid || chargement"

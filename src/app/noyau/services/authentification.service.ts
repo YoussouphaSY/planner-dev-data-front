@@ -8,7 +8,7 @@ import { Utilisateur, DemandeConnexion, DemandeInscription, ReponseAuth } from '
   providedIn: 'root'
 })
 export class AuthentificationService {
-  private readonly API_URL = 'http://localhost:8000/api/auth';
+  private readonly API_URL = 'https://planner-dev-data-backend.onrender.com/api/auth';
   private utilisateurActuelSubject = new BehaviorSubject<Utilisateur | null>(null);
   public utilisateurActuel$ = this.utilisateurActuelSubject.asObservable();
 

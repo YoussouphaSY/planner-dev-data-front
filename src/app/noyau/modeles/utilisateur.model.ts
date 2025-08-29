@@ -23,6 +23,7 @@ export interface DemandeInscription {
   last_name: string;
   filiere: Filiere;
   password: string;
+  password_confirm: string;
 }
 
 export interface ReponseAuth {

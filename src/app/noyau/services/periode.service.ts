@@ -7,7 +7,7 @@ import { PeriodePlanning, DemandePeriode } from '../modeles/planning.model';
   providedIn: 'root'
 })
 export class PeriodeService {
-  private readonly API_URL = 'http://localhost:8000/api/plannings';
+  private readonly API_URL = 'https://planner-dev-data-backend.onrender.com/api/plannings';
 
   constructor(private http: HttpClient) {}
 
